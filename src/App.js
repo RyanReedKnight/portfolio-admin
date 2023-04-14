@@ -6,13 +6,19 @@ import React from 'react';
 
 function App() {
 
+  const getRenderCondition = () => {
+    return isLogedIn && token && token !='';
+  }
+
   const [token,setToken] = React.useState('');
   const [isLogedIn,setIsLogedIn] = React.useState(false);
 
   const handleTokenChange = (newToken) => {
     setToken(()=>newToken);
-    token && console.log(`Token set.`);
+    token && console.log(`Token set. ${token}`);
   }
+
+  //React.useEffect();
 
   const handleLoginChange = (newLoginStatus) => {
     setIsLogedIn(()=>newLoginStatus);
@@ -20,21 +26,22 @@ function App() {
   }
 
   React.useEffect(()=>{
-    console.log(`isLogedIn: ${isLogedIn}Z`);
+    console.log(`isLogedIn: ${isLogedIn}`);
   },[isLogedIn]);
 
   return (
     <div className="App">
-      {!isLogedIn && <Login
+      {(!isLogedIn || !token || token===``) && <Login
         token={token}
         handleTokenChange={handleTokenChange}
         isLogedIn={isLogedIn}
         handleLoginChange={handleLoginChange}
       />}
 
-      {isLogedIn && <AdminMenu
+      {getRenderCondition() && <AdminMenu
         isLogedIn={isLogedIn}
         handleLoginChange={handleLoginChange}
+        authToken={token}
       />}
     </div>
   );
