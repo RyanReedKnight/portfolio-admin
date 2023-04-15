@@ -4,9 +4,6 @@ import Environment from "../../Environment";
 import UploadPhoto from "../UploadPhoto/UploadPhoto";
 
 const AdminMenu = ({isLogedIn, handleLoginChange,authToken}) => {
-
-    console.log(`Admin menu Token ${authToken}`)
-
     const [loadUploadPhoto,setLoadUploadPhoto] = useState(false);
 
     const toggleUploadPhoto = () => {

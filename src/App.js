@@ -15,7 +15,7 @@ function App() {
 
   const handleTokenChange = (newToken) => {
     setToken(()=>newToken);
-    token && console.log(`Token set. ${token}`);
+    token && console.log(`Token set.`);
   }
 
   //React.useEffect();

@@ -7,8 +7,6 @@ const photoFormId = "photo-form";
 
 const UploadPhoto = ({uploadPhoto, toggleUploadPhoto, authToken}) => {
 
-    console.log(`Upload photo authToken: ${authToken}`);
-
     // State hooks
     const [msg, setMsg] = useState('');
     const [photo,setPhoto] = useState({});

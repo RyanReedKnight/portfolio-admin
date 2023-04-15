@@ -15,9 +15,10 @@ class ImageService {
             }}
         ).then(res => {
             console.log(res);
-            return res;
+            return res.data;
         }).catch(err => {
             console.error(err);
+            return 'ERROR'
         })
     };
 }
