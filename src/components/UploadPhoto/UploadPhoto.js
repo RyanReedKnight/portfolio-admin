@@ -2,6 +2,9 @@ import React, {useState} from "react";
 // Services
 import ImageService from "../../services/ImageService";
 
+// Element id's
+const photoFormId = "photo-form";
+
 const UploadPhoto = ({uploadPhoto, toggleUploadPhoto, authToken}) => {
 
     console.log(`Upload photo authToken: ${authToken}`);
@@ -14,12 +17,16 @@ const UploadPhoto = ({uploadPhoto, toggleUploadPhoto, authToken}) => {
 
     const handleSubmit = async (event) => {
         event.preventDefault();
-        const form = event.target;
+
+        // Set up form to post.
+        const form = document.getElementById(photoFormId);
+        const formData = new FormData(form);
 
         const imageService = new ImageService();
         
+        
         try {
-            let result = imageService.postImageToServer(photo,authToken)
+            let result = imageService.postImageToServer(formData,authToken);
             setMsg(() => result );
         } catch(err) {
             console.error(err);
@@ -41,8 +48,9 @@ const UploadPhoto = ({uploadPhoto, toggleUploadPhoto, authToken}) => {
     }
 
     return ( <>
-        <form onSubmit={handleSubmit}>
-            <input type="file" id="bytes" name="bytes" onChange= {(event) => handleByteChange(event)}/>
+        <form id={photoFormId} onSubmit={handleSubmit} encType="multipart/form-data" action="/upload" 
+            method="POST">
+            <input type="file" id="bytes" name="photoFile" onChange= {(event) => handleByteChange(event)}/>
             <label htmlFor="title"/>
             <input type="text" id="title" name="title" onChange= {(event) => handleTitleChange(event)}/>
             <label htmlFor="location" />
@@ -51,7 +59,6 @@ const UploadPhoto = ({uploadPhoto, toggleUploadPhoto, authToken}) => {
             <input type="text" id="description" name="description" onChange= {(event) => handleDescriptionChange(event)}/>
             <button type="submit">Upload</button>
         </form>
-        <button>Back to admin menu</button>
         {msg && (<div>
             <p>{msg}</p>
         </div>)}

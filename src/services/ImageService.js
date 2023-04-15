@@ -6,13 +6,12 @@ import Photo from '../models/photo';
 class ImageService {
 
     url = `${Environment.baseUrl}/photos`;
-    postImageToServer = (photo, authToken) => {
-        const bytes = window.btoa(photo.bytes);
-        axios.post(this.url, JSON.stringify({...photo,bytes: bytes}) ,
+    postImageToServer = (formData, authToken) => {
+        axios.post(this.url, formData,
             {
                 headers: {
                 Authorization: `${authToken}`,
-                'Content-Type': 'application/json'
+                'Content-Type': 'multipart/form-data'
             }}
         ).then(res => {
             console.log(res);
