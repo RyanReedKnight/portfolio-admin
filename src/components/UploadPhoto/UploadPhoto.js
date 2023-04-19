@@ -25,7 +25,8 @@ const UploadPhoto = ({uploadPhoto, toggleUploadPhoto, authToken}) => {
         
         try {
             let result = imageService.postImageToServer(formData,authToken);
-            setMsg(() => result );
+            setMsg(() => result);
+            console.log(`result: ${result}`)
         } catch(err) {
             console.error(err);
         }
@@ -57,7 +58,7 @@ const UploadPhoto = ({uploadPhoto, toggleUploadPhoto, authToken}) => {
             <input type="text" id="description" name="description" onChange= {(event) => handleDescriptionChange(event)}/>
             <button type="submit">Upload</button>
         </form>
-        {msg && (<div>
+        {msg!=='' && (<div>
             <p>{msg}</p>
         </div>)}
         <button onClick={toggleUploadPhoto}>Close</button>
